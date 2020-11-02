@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from flask import Flask, g
 import IcomControl
@@ -10,16 +10,19 @@ app = Flask(__name__)
 def icom():
     if not hasattr(g, 'icom'):
         g.icom = IcomControl.IcomControl('/dev/ttyUSB0', 19200, "\x77")
-        print "Icom init"
+        print("Icom init")
     return g.icom
+
 
 @app.route('/setfreq')
 def setfreq(frequency):
     icom().setFrequency(frequency)
 
+
 @app.route('/getfreq')
 def getfreq():
     return str(icom().getFrequency())
+
 
 @app.route('/getmodefilter')
 def getmodefilter():
